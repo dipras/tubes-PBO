@@ -1,5 +1,6 @@
 
 import java.util.Scanner;
+import page.StockPage;
 import pkg.User;
 
 public class Main {
@@ -9,9 +10,11 @@ public class Main {
     static Scanner inp = new Scanner(System.in);
 
     public static void main(String[] kontoru) {
-        loginPage();
-        System.out.println("SELEMAT DATANG " + currentUser.getName());
-        mainMenu();
+        while (true) {
+            loginPage();
+            System.out.println("SELEMAT DATANG " + currentUser.getName());
+            mainMenu();
+        }
     }
 
     public static void loginPage() {
@@ -51,8 +54,8 @@ public class Main {
         choice = inp.nextInt();
         inp.nextLine();
         switch (choice) {
-            case 1 ->
-                System.out.println("Hello world");
+            case 1 -> StockPage.view();
+            case 2 -> System.out.println("Ini menu 2");
             case 9 ->
                 System.out.println("Selamat tinggal!");
             default ->
