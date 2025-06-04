@@ -15,5 +15,29 @@ public class Report {
         this.created_at = new Date();
         this.updated_at = new Date();
     }
+    public int getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.updated_at = new Date();
+        this.name = name;
+    }
+    public Date getGrossProfit() {
+        return gross_profit;
+    }
+    public void setGrossProfit(Date gross_profit) {
+        this.updated_at = new Date();
+        this.gross_profit = gross_profit;
+    }
+    public Date getCreatedAt() {
+        return created_at;
+    }
+    public Date getUpdatedAt() {
+        return updated_at;
+    }
+    
     
 }
