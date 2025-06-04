@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import page.StockPage;
 import pkg.User;
