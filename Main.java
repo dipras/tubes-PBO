@@ -5,7 +5,7 @@ import pkg.User;
 
 public class Main {
 
-    static User[] users = {new User(1, "Raddit", "radit@gmail.com", "wkowko")};
+    static User[] users = {new User(1, "radit", "radit@radit.com", "777777")};
     static User currentUser;
     static Scanner inp = new Scanner(System.in);
 
