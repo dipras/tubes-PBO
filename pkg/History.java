@@ -24,11 +24,11 @@ public class History {
         this.update_at = new Date();
     }
 
-    public int getCreated_by() {
+    public int getCreatedBy() {
         return created_by;
     }
 
-    public String getMethod_payment() {
+    public String getMethodPayment() {
         return method_payment;
     }
 
@@ -48,10 +48,12 @@ public class History {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "id = " + id + "; Crate by =" + created_by + "; Method Payment =" + method_payment + "; Cash Charge" + cashcharge + "; Cash Back = "
-                + cashback + "Total = " + total + "; Created At = " + created_at + "; Updated At = " + update_at;
+    public Date getCreatedAt() {
+        return created_at;
     }
+    public Date getUpdateAt() {
+        return update_at;
+    }
+
 
 }

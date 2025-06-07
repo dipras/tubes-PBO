@@ -10,13 +10,13 @@ public class StockHistory {
         this.stock_id = stock_id;
         this.history_id = history_id;
     }
-    public int getid() {
+    public int getId() {
         return id;
     }
-    public int getstock_id() {
+    public int getStock_id() {
         return stock_id;
     }
-    public int gethistory_id() {
+    public int getHstory_id() {
         return history_id;
     }
 }

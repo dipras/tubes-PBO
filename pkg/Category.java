@@ -29,8 +29,10 @@ public class Category {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "id = " + id + "; name = " + name + "; Created At = " + created_at + "; Updated At = " + updated_at;
+    public Date getCreatedAt() {
+        return created_at;
+    }
+    public Date getUpdatedAt() {
+        return updated_at;
     }
 }
