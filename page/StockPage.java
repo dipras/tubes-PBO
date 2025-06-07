@@ -2,18 +2,22 @@ package page;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import main.Main;
 import pkg.Stock;
 import util.Util;
 
 public class StockPage {
     static ArrayList<Stock> listStock = new ArrayList<>();
-
-    public static void view() {
-        System.out.println("1. List Stock\n2. Tambah Stock \n3. Update Stock\n4. Hapus Stock");
+    static {
         listStock.add(new Stock(1, "Nasi Goreng", "Makanan Berat", new Date(), new Date(), 20000));
         listStock.add(new Stock(2, "Bakso", "Makanan Berat", new Date(), new Date(), 18000));
         listStock.add(new Stock(3, "Es Teh", "Minuman", new Date(), new Date(), 5000));
         listStock.add(new Stock(4, "Pisang Goreng", "Cemilan", new Date(), new Date(), 8000));
+        }
+    public static void view() {
+        System.out.println("1. List Stock\n2. Tambah Stock \n3. Update Stock\n4. Hapus Stock\n9. Kembali ke Menu Utama");
+        
         int choice = 0;
 
         while (choice != 9) {
@@ -24,6 +28,12 @@ public class StockPage {
                 case 2 -> addFood();
                 case 3 -> updateFood();
                 case 4 -> deleteFood();
+                case 9 -> Main.mainMenu();
+                default ->  {
+                System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+                System.out.print("Masukkan pilihan: ");
+                choice = Util.getInput();
+            }
             }
         }
     }
