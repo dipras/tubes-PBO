@@ -5,7 +5,7 @@ import page.CheckoutPage;
 import page.ReportPage;
 import page.StockPage;
 import pkg.User;
-
+ 
 public class Main {
 
     static User[] users = {
