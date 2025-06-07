@@ -1,10 +1,19 @@
+package main;
 import java.util.Scanner;
+
+import page.CheckoutPage;
+import page.ReportPage;
 import page.StockPage;
 import pkg.User;
 
 public class Main {
 
-    static User[] users = {new User(1, "radit", "radit@radit.com", "777777")};
+    static User[] users = {
+        new User(1, "radit", "radit@radit.com", "radit")
+      , new User(2, "gector", "gector@gector.com", "gector")
+      , new User(3, "yumina", "yumina@yumina.com", "yumina")
+      , new User(4, "yuli", "yuli@yuli.com", "yuli")
+    };
     static User currentUser;
     static Scanner inp = new Scanner(System.in);
 
@@ -21,13 +30,13 @@ public class Main {
         System.out.println("LOGIN PAGE");
         System.out.println("======================================");
 
-        System.out.print("email: ");
-        String email = inp.nextLine();
+        System.out.print("nama: ");
+        String name = inp.nextLine();
         System.out.print("password: ");
         String pw = inp.nextLine();
 
         for (User user : users) {
-            if (user.getEmail().equals(email)) {
+            if (user.getName().equals(name)) {
                 if (user.isPasswordValid(pw)) {
                     currentUser = user;
                     System.out.println("BERHASIL LOGIN\n\n");
@@ -43,9 +52,24 @@ public class Main {
         }
     }
 
+    public static String profile() {
+    return String.format(
+        "======================================\n" +
+        "PROFILE\n" +
+        "======================================\n" +
+        "ID: %s\n" +
+        "Name: %s\n" +
+        "Email: %s\n" +
+        "======================================\n",
+        currentUser.getId(),
+        currentUser.getName(),
+        currentUser.getEmail()
+    );
+}
+    
     public static void mainMenu() {
         System.out.println("==============================================");
-        System.out.println("1. Stock\n2. Checkout\n3. Profile\n9. Logout");
+        System.out.println("1. Stock\n2. Checkout\n3. Profile\n4. Report Transaction\n9. Logout");
         System.out.println("==============================================");
 
         int choice = 0;
@@ -54,11 +78,17 @@ public class Main {
         inp.nextLine();
         switch (choice) {
             case 1 -> StockPage.view();
-            case 2 -> System.out.println("Ini menu 2");
+            case 2 -> CheckoutPage.view();
+            case 3 -> System.out.println(profile());
+            case 4 -> ReportPage.view();
             case 9 ->
                 System.out.println("Selamat tinggal!");
-            default ->
+            default -> {
                 System.out.println("Masukan menu yang benar!");
+                System.out.print("Masukkan pilihan: ");
+                choice = inp.nextInt();
+                break;
+            }
         }
 
         if (choice != 9) {
