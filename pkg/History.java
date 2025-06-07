@@ -5,7 +5,7 @@ import java.util.Date;
 public class History {
 
     private int id = 0;
-    private int crated_by = 0;
+    private int created_by = 0;
     private String method_payment = "";
     private int cashcharge = 0;
     private int cashback = 0;
@@ -13,9 +13,9 @@ public class History {
     private Date created_at = null;
     private Date update_at = null;
 
-    public History(int id, int crated_by, String method_payment, int cashcharge, int cashback, int total) {
+    public History(int id, int created_by, String method_payment, int cashcharge, int cashback, int total) {
         this.id = id;
-        this.crated_by = crated_by;
+        this.created_by = created_by;
         this.method_payment = method_payment;
         this.cashcharge = cashcharge;
         this.cashback = cashback;
@@ -24,8 +24,8 @@ public class History {
         this.update_at = new Date();
     }
 
-    public int getCrated_by() {
-        return crated_by;
+    public int getCreated_by() {
+        return created_by;
     }
 
     public String getMethod_payment() {
@@ -50,7 +50,7 @@ public class History {
 
     @Override
     public String toString() {
-        return "id = " + id + "; Crate by =" + crated_by + "; Method Payment =" + method_payment + "; Cash Charge" + cashcharge + "; Cash Back = "
+        return "id = " + id + "; Crate by =" + created_by + "; Method Payment =" + method_payment + "; Cash Charge" + cashcharge + "; Cash Back = "
                 + cashback + "Total = " + total + "; Created At = " + created_at + "; Updated At = " + update_at;
     }
 
