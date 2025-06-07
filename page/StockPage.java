@@ -20,8 +20,7 @@ public class StockPage {
             System.out.print("Masukan pilihan:");
             choice = Util.getInput();
             switch (choice) {
-                case 1 ->
-                    listFood();
+                case 1 -> listFood();
                 case 2 -> addFood();
                 case 3 -> updateFood();
                 case 4 -> deleteFood();
