@@ -16,7 +16,7 @@ public class CheckoutPage {
     static int historyIdCounter = 1;
     static int stockHistoryIdCounter = 1;
 
-    public static void view() {
+    public static void viewCheckout() {
         int choice = 0;
 
         while (choice != 9) {
@@ -243,7 +243,7 @@ public class CheckoutPage {
         System.out.println("======================================");
     }
 
-    private static Stock findStockById(int id) {
+    static Stock findStockById(int id) {
         for (Stock stock : StockPage.listStock) {
             if (stock.getId() == id) {
                 return stock;

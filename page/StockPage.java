@@ -15,7 +15,7 @@ public class StockPage {
         listStock.add(new Stock(3, "Es Teh", "Minuman", new Date(), new Date(), 5000));
         listStock.add(new Stock(4, "Pisang Goreng", "Cemilan", new Date(), new Date(), 8000));
         }
-    public static void view() {
+    public static void viewStock() {
         System.out.println("1. List Stock\n2. Tambah Stock \n3. Update Stock\n4. Hapus Stock\n9. Kembali ke Menu Utama");
         
         int choice = 0;

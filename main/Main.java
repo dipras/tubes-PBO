@@ -77,10 +77,10 @@ public class Main {
         choice = inp.nextInt();
         inp.nextLine();
         switch (choice) {
-            case 1 -> StockPage.view();
-            case 2 -> CheckoutPage.view();
+            case 1 -> StockPage.viewStock();
+            case 2 -> CheckoutPage.viewCheckout();
             case 3 -> System.out.println(profile());
-            case 4 -> ReportPage.view();
+            case 4 -> ReportPage.viewReport();
             case 9 ->
                 System.out.println("Selamat tinggal!");
             default -> {
