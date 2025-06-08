@@ -2,6 +2,7 @@ package main;
 import java.util.Scanner;
 
 import page.CheckoutPage;
+import page.ProfilePage;
 import page.ReportPage;
 import page.StockPage;
 import pkg.User;
@@ -14,7 +15,7 @@ public class Main {
       , new User(3, "langga", "langga@langga.com", "langga")
       , new User(4, "yuli", "yuli@yuli.com", "yuli")
     };
-    static User currentUser;
+    public static User currentUser;
     static Scanner inp = new Scanner(System.in);
 
     public static void main(String[] kontoru) {
@@ -52,20 +53,8 @@ public class Main {
         }
     }
 
-    public static String profile() {
-    return String.format(
-        "======================================\n" +
-        "PROFILE\n" +
-        "======================================\n" +
-        "ID: %s\n" +
-        "Name: %s\n" +
-        "Email: %s\n" +
-        "======================================\n",
-        currentUser.getId(),
-        currentUser.getName(),
-        currentUser.getEmail()
-    );
-}
+   
+
     
     public static void mainMenu() {
         System.out.println("==============================================");
@@ -79,7 +68,7 @@ public class Main {
         switch (choice) {
             case 1 -> StockPage.viewStock();
             case 2 -> CheckoutPage.viewCheckout();
-            case 3 -> System.out.println(profile());
+            case 3 -> ProfilePage.viewProfile();
             case 4 -> ReportPage.viewReport();
             case 9 ->
                 System.out.println("Selamat tinggal!");
