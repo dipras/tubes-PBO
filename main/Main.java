@@ -11,7 +11,7 @@ public class Main {
     static User[] users = {
         new User(1, "radit", "radit@radit.com", "radit")
       , new User(2, "gector", "gector@gector.com", "gector")
-      , new User(3, "yumina", "yumina@yumina.com", "yumina")
+      , new User(3, "langga", "langga@langga.com", "langga")
       , new User(4, "yuli", "yuli@yuli.com", "yuli")
     };
     static User currentUser;
