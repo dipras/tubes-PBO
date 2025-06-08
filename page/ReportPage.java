@@ -27,7 +27,7 @@ public class ReportPage {
 
         System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s %-15s\n",
                 "ID", "Tanggal", "Metode Bayar", "Bayar", "Kembali", "Total", "User ID");
-        System.out.println("---------------------------------------------------------------------------------------------------");
+        
 
         for (History history : listHistory) {
             System.out.printf("%-5d %-15s %-15s %-15s %-15s %-15s %-15d\n",
@@ -39,8 +39,7 @@ public class ReportPage {
                     String.format("Rp%,d", history.getTotal()),
                     history.getCreatedBy());
         }
-        System.out.println("---------------------------------------------------------------------------------------------------");
-
+        
         while (true) {
             System.out.print("Lihat Detail Item? Masukkan ID Transaksi (0 untuk selesai): ");
             int detailHistoryId = Util.getInput();
@@ -77,7 +76,7 @@ public class ReportPage {
                 if (!itemFoundInHistory) {
                      System.out.println("    Tidak ada item tercatat untuk transaksi ini.");
                 }
-                System.out.println("  ----------------------------------------");
+                
             } else {
                 System.out.println("Transaksi dengan ID " + detailHistoryId + " tidak ditemukan.");
             }

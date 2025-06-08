@@ -183,7 +183,7 @@ public class CheckoutPage {
 
         System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s %-15s\n",
                 "ID", "Tanggal", "Metode Bayar", "Bayar", "Kembali", "Total", "User ID");
-        System.out.println("---------------------------------------------------------------------------------------------------");
+        
 
 
         for (History history : listHistory) {
@@ -196,7 +196,7 @@ public class CheckoutPage {
                     String.format("Rp%,d", history.getTotal()),
                     history.getCreatedBy());
         }
-        System.out.println("---------------------------------------------------------------------------------------------------");
+        
 
         while (true) {
             System.out.print("Lihat Detail Item? Masukkan ID Transaksi (0 untuk selesai): ");
