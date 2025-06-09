@@ -2,6 +2,7 @@ package page;
 
 import java.util.ArrayList;
 
+
 import main.Main;
 import pkg.History;
 import pkg.Stock;
@@ -78,6 +79,7 @@ public class CheckoutPage {
                 continue;
             }
 
+            
             for(int i = 0; i < quantity; i++) {
                 StockHistory newStockHistory = new StockHistory(stockHistoryIdCounter++, productId, currentHistoryId);
                 listStockHistory.add(newStockHistory);
@@ -98,19 +100,50 @@ public class CheckoutPage {
         System.out.println("======================================");
         System.out.println("\nDetail Checkout");
         System.out.printf("%-20s %-10s %-15s\n", "Nama Produk", "Jumlah", "Harga Satuan");
+        
+        
+        ArrayList<Integer> ProductId = new ArrayList<>();
+
+        
         for (StockHistory sh : listStockHistory) {
             if (sh.getHstory_id() == currentHistoryId) {
-                Stock stock = findStockById(sh.getStock_id());
-                if (stock != null) {
-                    System.out.printf("%-20s %-10d Rp%,d\n",
-                            stock.getNama(),
-                            1,
-                            stock.getHarga());
-                } else {
-                    System.out.printf("Produk tidak ditemukan (ID: %d)\n", sh.getStock_id());
+                int currentProductId = sh.getStock_id();
+
+                
+                boolean alreadyDisplayed = false;
+                for (int id : ProductId) {
+                    if (id == currentProductId) {
+                        alreadyDisplayed = true;
+                        break;
+                    }
+                }
+
+                if (!alreadyDisplayed) {
+                    
+                    int quantity = 0;
+                    for (StockHistory innerSh : listStockHistory) {
+                        if (innerSh.getHstory_id() == currentHistoryId && innerSh.getStock_id() == currentProductId) {
+                            quantity++;
+                        }
+                    }
+
+                    Stock stock = findStockById(currentProductId);
+                    if (stock != null) {
+                        System.out.printf("%-20s %-10d Rp%,d\n",
+                                stock.getNama(),
+                                quantity,
+                                stock.getHarga());
+                    } else {
+                        System.out.printf("Produk tidak ditemukan (ID: %d)\n", currentProductId);
+                    }
+
+                    
+                    ProductId.add(currentProductId);
                 }
             }
         }
+       
+
         System.out.println("======================================");
         System.out.printf("Total Belanja: Rp%,d\n", totalHarga);
 
@@ -132,6 +165,7 @@ public class CheckoutPage {
                     System.out.println("Jumlah bayar kurang dari total belanja. Transaksi dibatalkan.");
                     historyIdCounter--;
 
+                    
                     listStockHistory.removeIf(sh -> sh.getHstory_id() == currentHistoryId);
                     return;
                 }
@@ -145,6 +179,7 @@ public class CheckoutPage {
                     System.out.println("Jumlah bayar kurang dari total belanja. Transaksi dibatalkan.");
                     historyIdCounter--;
 
+                    
                     listStockHistory.removeIf(sh -> sh.getHstory_id() == currentHistoryId);
                     return;
                 }
@@ -170,10 +205,6 @@ public class CheckoutPage {
         System.out.printf("Kembali: Rp%,d\n", cashBack);
         System.out.println("======================================");
     }
-
-   
-
-     
 
     static Stock findStockById(int id) {
         for (Stock stock : StockPage.listStock) {

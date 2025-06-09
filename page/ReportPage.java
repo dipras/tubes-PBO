@@ -6,6 +6,7 @@ import main.Main;
 import pkg.History;
 import pkg.Stock;
 import pkg.StockHistory;
+
 import util.Util;
 
 public class ReportPage {
@@ -41,6 +42,12 @@ public class ReportPage {
                     history.getCreatedBy());
         }
         
+        long gross_profit = calculateTotalGrossProfit(listHistory);
+        System.out.println("======================================");
+        System.out.printf("Total Gross Profit: Rp%,d\n", gross_profit);
+        System.out.println("======================================");
+        
+
         while (true) {
             System.out.print("Lihat Detail Item? Masukkan ID Transaksi (0 untuk selesai): ");
             int detailHistoryId = Util.getInput();
@@ -88,4 +95,14 @@ public class ReportPage {
         Util.getInputStr();
         Main.mainMenu();
     }
+
+    
+    public static long calculateTotalGrossProfit(ArrayList<History> histories) {
+        long totalGrossProfit = 0;
+        for (History history : histories) {
+            totalGrossProfit += history.getTotal();
+        }
+        return totalGrossProfit;
+    }
+   
 }
