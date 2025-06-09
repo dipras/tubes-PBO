@@ -2,6 +2,7 @@ package page;
 
 import java.util.ArrayList;
 
+import main.Main;
 import pkg.History;
 import pkg.Stock;
 import pkg.StockHistory;
@@ -22,15 +23,15 @@ public class ReportPage {
             System.out.println("======================================");
             System.out.print("Tekan Enter untuk kembali...");
             Util.getInputStr();
-            return;
+            Main.mainMenu();
         }
 
-        System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s %-15s\n",
-                "ID", "Tanggal", "Metode Bayar", "Bayar", "Kembali", "Total", "User ID");
+        System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",
+                "ID Transaksi", "Tanggal", "Metode Bayar", "Bayar", "Kembali", "Total", "User ID");
         
 
         for (History history : listHistory) {
-            System.out.printf("%-5d %-15s %-15s %-15s %-15s %-15s %-15d\n",
+            System.out.printf("%-15d %-15s %-15s %-15s %-15s %-15s %-15d\n",
                     history.getId(),
                     Util.dateFormat.format(history.getCreatedAt()),
                     history.getMethodPayment(),
@@ -85,5 +86,6 @@ public class ReportPage {
         System.out.println("======================================");
         System.out.print("Tekan Enter untuk kembali...");
         Util.getInputStr();
+        Main.mainMenu();
     }
 }

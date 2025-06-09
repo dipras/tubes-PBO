@@ -31,8 +31,7 @@ public class StockPage {
                 case 9 -> Main.mainMenu();
                 default ->  {
                 System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-                System.out.print("Masukkan pilihan: ");
-                choice = Util.getInput();
+                viewStock();
             }
             }
         }
@@ -67,6 +66,7 @@ public class StockPage {
         Stock newStock = new Stock(id, nama, kategori, now, now, harga);
         listStock.add(newStock);
         System.out.println("Makanan berhasil ditambahkan.");
+        viewStock();
     }
 
     public static void updateFood() {
@@ -99,6 +99,7 @@ public class StockPage {
             stockToUpdate.setHarga(hargaBaru);
         }
         System.out.println("Makanan berhasil diupdate.");
+        
     }
 
     public static void deleteFood() {
@@ -117,5 +118,6 @@ public class StockPage {
         }
         listStock.remove(stockToDelete);
         System.out.println("Makanan berhasil dihapus.");
+        
     }
 }

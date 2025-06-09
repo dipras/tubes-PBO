@@ -24,6 +24,7 @@ public class ProfilePage {
 
         System.out.println("======================================");
         System.out.print("Tekan Enter untuk kembali...");
-        Util.getInputStr(); 
+        Util.getInputStr();
+        Main.mainMenu(); 
     }
 }

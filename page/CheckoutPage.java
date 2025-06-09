@@ -2,7 +2,6 @@ package page;
 
 import java.util.ArrayList;
 
-
 import main.Main;
 import pkg.History;
 import pkg.Stock;
@@ -23,18 +22,17 @@ public class CheckoutPage {
             System.out.println("======================================");
             System.out.println("\nHalaman Checkout");
             System.out.println("======================================");
-            System.out.println("1. Tambah Transaksi Baru");
-            System.out.println("2. Lihat Riwayat Transaksi");
+            System.out.println("1. Checkout");
             System.out.println("9. Kembali ke Menu Utama");
             System.out.print("Masukan pilihan: ");
             choice = Util.getInput();
 
             switch (choice) {
                 case 1 -> addTransaction();
-                case 2 -> viewHistory();
                 case 9 -> Main.mainMenu();
                 default -> {
                     System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+                    viewCheckout();
             } }
         }
     }
@@ -53,7 +51,7 @@ public class CheckoutPage {
         System.out.println("\nMasukkan ID produk dan jumlah yang ingin dibeli (ketik '0' untuk selesai):");
 
         while (true) {
-            System.out.print("Masukkan ID Produk (0 untuk selesai): ");
+            System.out.print("Masukkan ID Produk (0 untuk Checkout): ");
             int productId = Util.getInput();
             if (productId == 0) {
                 break;
@@ -119,6 +117,7 @@ public class CheckoutPage {
         String methodPayment;
         int cashCharge = 0;
         int cashBack = 0;
+        int created_by = Main.currentUser.getId(); 
 
 
         while (true) {
@@ -160,88 +159,21 @@ public class CheckoutPage {
 
         }
 
-        History newHistory = new History(currentHistoryId, 1, methodPayment, cashCharge, cashBack, totalHarga);
+        History newHistory = new History(currentHistoryId, created_by, methodPayment, cashCharge, cashBack, totalHarga);
         listHistory.add(newHistory);
 
         System.out.println("======================================");
         System.out.println("\nTransaksi berhasil dicatat!");
+        System.out.printf("ID User: %,d\n", created_by);
         System.out.printf("Total: Rp%,d\n", totalHarga);
         System.out.printf("Bayar: Rp%,d\n", cashCharge);
         System.out.printf("Kembali: Rp%,d\n", cashBack);
         System.out.println("======================================");
     }
 
-    public static void viewHistory() {
-        System.out.println("======================================");
-        System.out.println("\nRiwayat Transaksi");
-        System.out.println("======================================");
+   
 
-        if (listHistory.isEmpty()) {
-            System.out.println("Belum ada riwayat transaksi.");
-            return;
-        }
-
-        System.out.printf("%-5s %-15s %-15s %-15s %-15s %-15s %-15s\n",
-                "ID", "Tanggal", "Metode Bayar", "Bayar", "Kembali", "Total", "User ID");
-        
-
-
-        for (History history : listHistory) {
-            System.out.printf("%-5d %-15s %-15s %-15s %-15s %-15s %-15d\n",
-                    history.getId(),
-                    Util.dateFormat.format(history.getCreatedAt()),
-                    history.getMethodPayment(),
-                    String.format("Rp%,d", history.getCashcharge()),
-                    String.format("Rp%,d", history.getCashback()),
-                    String.format("Rp%,d", history.getTotal()),
-                    history.getCreatedBy());
-        }
-        
-
-        while (true) {
-            System.out.print("Lihat Detail Item? Masukkan ID Transaksi (0 untuk selesai): ");
-            int detailHistoryId = Util.getInput();
-
-            if (detailHistoryId == 0) {
-                break;
-            }
-
-            boolean historyFound = false;
-            for (History history : listHistory) {
-                if (history.getId() == detailHistoryId) {
-                    historyFound = true;
-                    break;
-                }
-            }
-
-            if (historyFound) {
-                System.out.println("\n  Detail Item untuk Transaksi ID " + detailHistoryId + ":");
-                boolean itemFoundInHistory = false;
-                for(StockHistory sh : listStockHistory) {
-                    if (sh.getHstory_id() == detailHistoryId) {
-                        itemFoundInHistory = true;
-                        Stock stock = findStockById(sh.getStock_id());
-                        if (stock != null) {
-                             System.out.printf("    - %-15s (ID: %d) @ Rp%,d\n",
-                                    stock.getNama(),
-                                    stock.getId(),
-                                    stock.getHarga());
-                        } else {
-                             System.out.printf("    - Produk tidak ditemukan (ID: %d)\n", sh.getStock_id());
-                        }
-                    }
-                }
-                if (!itemFoundInHistory) {
-                     System.out.println("    Tidak ada item tercatat untuk transaksi ini.");
-                }
-                System.out.println("======================================");
-            } else {
-                System.out.println("Transaksi dengan ID " + detailHistoryId + " tidak ditemukan.");
-            }
-        }
-
-        System.out.println("======================================");
-    }
+     
 
     static Stock findStockById(int id) {
         for (Stock stock : StockPage.listStock) {

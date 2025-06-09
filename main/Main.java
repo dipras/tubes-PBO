@@ -70,18 +70,18 @@ public class Main {
             case 2 -> CheckoutPage.viewCheckout();
             case 3 -> ProfilePage.viewProfile();
             case 4 -> ReportPage.viewReport();
-            case 9 ->
-                System.out.println("Selamat tinggal!");
+            case 9 -> {
+                System.out.println("Anda telah logout.");
+                loginPage();
+            }
+                
             default -> {
-                System.out.println("Masukan menu yang benar!");
-                System.out.print("Masukkan pilihan: ");
-                choice = inp.nextInt();
-                break;
+                System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+                mainMenu();
             }
         }
 
-        if (choice != 9) {
-            mainMenu();
-        }
+        
+        
     }
 }
