@@ -1,9 +1,9 @@
 package page;
 
 import java.util.ArrayList;
-import pkg.History;
-import pkg.Stock;
-import pkg.StockHistory;
+import model.History;
+import model.Stock;
+import model.StockHistory;
 import util.Util;
 
 public class ReportPage {

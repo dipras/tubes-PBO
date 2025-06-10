@@ -2,7 +2,7 @@ package page;
 
 import java.util.ArrayList;
 import java.util.Date;
-import pkg.Stock;
+import model.Stock;
 import util.Util;
 
 public class StockPage {

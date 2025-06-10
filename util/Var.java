@@ -1,6 +1,6 @@
 package util;
 
-import pkg.User;
+import model.User;
 
 public class Var {
     private static User currentUser;

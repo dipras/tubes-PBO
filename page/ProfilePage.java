@@ -1,6 +1,6 @@
 package page;
 
-import pkg.User;
+import model.User;
 import util.Util;  
 import util.Var;
 

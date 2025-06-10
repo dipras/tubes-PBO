@@ -5,7 +5,7 @@ import page.CheckoutPage;
 import page.ProfilePage;
 import page.ReportPage;
 import page.StockPage;
-import pkg.User;
+import model.User;
 import util.Var;
  
 public class Main {

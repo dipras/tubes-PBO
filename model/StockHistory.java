@@ -1,4 +1,4 @@
-package pkg;
+package model;
 
 public class StockHistory {
     private int id = 0;

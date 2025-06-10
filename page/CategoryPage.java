@@ -1,7 +1,7 @@
 package page;
 
 import java.util.ArrayList;
-import pkg.Category;
+import model.Category;
 import util.Util;
 
 public class CategoryPage {
