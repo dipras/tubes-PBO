@@ -1,13 +1,11 @@
 package page;
 
 import java.util.ArrayList;
-
-
-import main.Main;
 import pkg.History;
 import pkg.Stock;
 import pkg.StockHistory;
 import util.Util;
+import util.Var;
 
 public class CheckoutPage {
 
@@ -30,10 +28,11 @@ public class CheckoutPage {
 
             switch (choice) {
                 case 1 -> addTransaction();
-                case 9 -> Main.mainMenu();
+                case 9 -> {
+                    break;
+                }
                 default -> {
                     System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-                    viewCheckout();
             } }
         }
     }
@@ -150,7 +149,7 @@ public class CheckoutPage {
         String methodPayment;
         int cashCharge = 0;
         int cashBack = 0;
-        int created_by = Main.currentUser.getId(); 
+        int created_by = Var.getCurrentUser().getId();
 
 
         while (true) {

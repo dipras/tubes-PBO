@@ -1,25 +1,18 @@
 import java.util.Scanner;
-
 import page.CheckoutPage;
 import page.ProfilePage;
 import page.ReportPage;
 import page.StockPage;
 import pkg.User;
+import util.Var;
  
 public class Main {
-
-    static User[] users = {
-        new User(1, "radit", "radit@radit.com", "radit")
-      , new User(2, "gector", "gector@gector.com", "gector")
-      , new User(3, "langga", "langga@langga.com", "langga")
-      , new User(4, "yuli", "yuli@yuli.com", "yuli")
-    };
-    public static User currentUser;
     static Scanner inp = new Scanner(System.in);
 
     public static void main(String[] kontoru) {
         while (true) {
             loginPage();
+            User currentUser = Var.getCurrentUser();
             System.out.println("SELEMAT DATANG " + currentUser.getName());
             mainMenu();
         }
@@ -35,17 +28,18 @@ public class Main {
         System.out.print("password: ");
         String pw = inp.nextLine();
 
+        User[] users = Var.getUsers();
         for (User user : users) {
             if (user.getName().equals(name)) {
                 if (user.isPasswordValid(pw)) {
-                    currentUser = user;
+                    Var.setCurrentUser(user);
                     System.out.println("BERHASIL LOGIN\n\n");
                 }
                 break;
             }
         }
 
-        if (currentUser == null) {
+        if (Var.getCurrentUser() == null) {
             System.out.println("Email atau password salah!\n\n");
 
             loginPage();
@@ -57,7 +51,7 @@ public class Main {
     
     public static void mainMenu() {
         System.out.println("==============================================");
-        System.out.println("1. Stock\n2. Checkout\n3. Profile\n4. Report Transaction\n9. Logout");
+        System.out.println("1. Stock\n2. Category\n3. Checkout\n4. Profile\n5. Report Transaction\n9. Logout");
         System.out.println("==============================================");
 
         int choice = 0;
@@ -66,9 +60,9 @@ public class Main {
         inp.nextLine();
         switch (choice) {
             case 1 -> StockPage.viewStock();
-            case 2 -> CheckoutPage.viewCheckout();
-            case 3 -> ProfilePage.viewProfile();
-            case 4 -> ReportPage.viewReport();
+            case 3 -> CheckoutPage.viewCheckout();
+            case 4 -> ProfilePage.viewProfile();
+            case 5 -> ReportPage.viewReport();
             case 9 -> {
                 System.out.println("Anda telah logout.");
                 loginPage();
@@ -76,11 +70,10 @@ public class Main {
                 
             default -> {
                 System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-                mainMenu();
             }
         }
 
-        
+        mainMenu();
         
     }
 }

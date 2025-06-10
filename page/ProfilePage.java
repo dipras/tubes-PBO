@@ -1,17 +1,15 @@
 package page;
 
-import main.Main; 
-import pkg.User;   
+import pkg.User;
 import util.Util;  
+import util.Var;
 
 public class ProfilePage {
-
     public static void viewProfile() {
+        User currentUser = Var.getCurrentUser();
         System.out.println("======================================");
         System.out.println("\nProfil User");
         System.out.println("======================================");
-
-        User currentUser = Main.currentUser; 
 
         if (currentUser == null) {
             System.out.println("Belum ada User yang login.");
@@ -25,6 +23,5 @@ public class ProfilePage {
         System.out.println("======================================");
         System.out.print("Tekan Enter untuk kembali...");
         Util.getInputStr();
-        Main.mainMenu(); 
     }
 }

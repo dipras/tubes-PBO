@@ -1,12 +1,9 @@
 package page;
 
 import java.util.ArrayList;
-
-import main.Main;
 import pkg.History;
 import pkg.Stock;
 import pkg.StockHistory;
-
 import util.Util;
 
 public class ReportPage {
@@ -24,7 +21,6 @@ public class ReportPage {
             System.out.println("======================================");
             System.out.print("Tekan Enter untuk kembali...");
             Util.getInputStr();
-            Main.mainMenu();
         }
 
         System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",
@@ -93,7 +89,6 @@ public class ReportPage {
         System.out.println("======================================");
         System.out.print("Tekan Enter untuk kembali...");
         Util.getInputStr();
-        Main.mainMenu();
     }
 
     

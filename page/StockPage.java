@@ -2,37 +2,40 @@ package page;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-import main.Main;
 import pkg.Stock;
 import util.Util;
 
 public class StockPage {
+
     static ArrayList<Stock> listStock = new ArrayList<>();
+
     static {
         listStock.add(new Stock(1, "Nasi Goreng", "Makanan Berat", new Date(), new Date(), 20000));
         listStock.add(new Stock(2, "Bakso", "Makanan Berat", new Date(), new Date(), 18000));
         listStock.add(new Stock(3, "Es Teh", "Minuman", new Date(), new Date(), 5000));
         listStock.add(new Stock(4, "Pisang Goreng", "Cemilan", new Date(), new Date(), 8000));
-        }
+    }
+
     public static void viewStock() {
         System.out.println("1. List Stock\n2. Tambah Stock \n3. Update Stock\n4. Hapus Stock\n9. Kembali ke Menu Utama");
-        
+
         int choice = 0;
 
         while (choice != 9) {
             System.out.print("Masukan pilihan:");
             choice = Util.getInput();
             switch (choice) {
-                case 1 -> listFood();
-                case 2 -> addFood();
-                case 3 -> updateFood();
-                case 4 -> deleteFood();
-                case 9 -> Main.mainMenu();
-                default ->  {
-                System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-                viewStock();
-            }
+                case 1 ->
+                    listFood();
+                case 2 ->
+                    addFood();
+                case 3 ->
+                    updateFood();
+                case 4 ->
+                    deleteFood();
+                default -> {
+                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+                }
             }
         }
     }
@@ -53,7 +56,6 @@ public class StockPage {
         });
     }
 
-
     public static void addFood() {
         System.out.print("Masukkan nama makanan: ");
         String nama = Util.getInputStr();
@@ -66,7 +68,6 @@ public class StockPage {
         Stock newStock = new Stock(id, nama, kategori, now, now, harga);
         listStock.add(newStock);
         System.out.println("Makanan berhasil ditambahkan.");
-        viewStock();
     }
 
     public static void updateFood() {
@@ -99,7 +100,7 @@ public class StockPage {
             stockToUpdate.setHarga(hargaBaru);
         }
         System.out.println("Makanan berhasil diupdate.");
-        
+
     }
 
     public static void deleteFood() {
@@ -118,6 +119,6 @@ public class StockPage {
         }
         listStock.remove(stockToDelete);
         System.out.println("Makanan berhasil dihapus.");
-        
+
     }
 }
