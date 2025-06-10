@@ -16,7 +16,7 @@ public class StockHistory {
     public int getStock_id() {
         return stock_id;
     }
-    public int getHstory_id() {
+    public int getHistory_id() {
         return history_id;
     }
 }

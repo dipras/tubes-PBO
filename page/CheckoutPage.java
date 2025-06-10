@@ -105,7 +105,7 @@ public class CheckoutPage {
 
         
         for (StockHistory sh : listStockHistory) {
-            if (sh.getHstory_id() == currentHistoryId) {
+            if (sh.getHistory_id() == currentHistoryId) {
                 int currentProductId = sh.getStock_id();
 
                 
@@ -121,7 +121,7 @@ public class CheckoutPage {
                     
                     int quantity = 0;
                     for (StockHistory innerSh : listStockHistory) {
-                        if (innerSh.getHstory_id() == currentHistoryId && innerSh.getStock_id() == currentProductId) {
+                        if (innerSh.getHistory_id() == currentHistoryId && innerSh.getStock_id() == currentProductId) {
                             quantity++;
                         }
                     }
@@ -165,7 +165,7 @@ public class CheckoutPage {
                     historyIdCounter--;
 
                     
-                    listStockHistory.removeIf(sh -> sh.getHstory_id() == currentHistoryId);
+                    listStockHistory.removeIf(sh -> sh.getHistory_id() == currentHistoryId);
                     return;
                 }
                 cashBack = cashCharge - totalHarga;
@@ -179,7 +179,7 @@ public class CheckoutPage {
                     historyIdCounter--;
 
                     
-                    listStockHistory.removeIf(sh -> sh.getHstory_id() == currentHistoryId);
+                    listStockHistory.removeIf(sh -> sh.getHistory_id() == currentHistoryId);
                     return;
                 }
                 cashBack = cashCharge - totalHarga;
