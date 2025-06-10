@@ -17,7 +17,6 @@ public class Var {
     }
 
     public static void setCurrentUser(User user) {
-        System.out.println(user.toString());
         currentUser = user;
     }
 
