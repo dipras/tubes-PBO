@@ -33,6 +33,10 @@ public class StockPage {
                     updateFood();
                 case 4 ->
                     deleteFood();
+                case 9 -> {
+                    System.out.println("Kembali ke Menu Utama...");
+                    return;
+                }
                 default -> {
                     System.out.println("Pilihan tidak valid. Silakan coba lagi.");
                 }

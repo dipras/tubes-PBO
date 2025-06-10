@@ -1,4 +1,6 @@
 import java.util.Scanner;
+
+import page.CategoryPage;
 import page.CheckoutPage;
 import page.ProfilePage;
 import page.ReportPage;
@@ -60,6 +62,7 @@ public class Main {
         inp.nextLine();
         switch (choice) {
             case 1 -> StockPage.viewStock();
+            case 2 -> CategoryPage.CategoryView();
             case 3 -> CheckoutPage.viewCheckout();
             case 4 -> ProfilePage.viewProfile();
             case 5 -> ReportPage.viewReport();
