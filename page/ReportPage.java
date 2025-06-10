@@ -64,7 +64,7 @@ public class ReportPage {
                 System.out.println("\n  Detail Item untuk Transaksi ID " + detailHistoryId + ":");
                 boolean itemFoundInHistory = false;
                 for(StockHistory sh : listStockHistory) {
-                    if (sh.getHstory_id() == detailHistoryId) {
+                    if (sh.getHistory_id() == detailHistoryId) {
                         itemFoundInHistory = true;
                         Stock stock = CheckoutPage.findStockById(sh.getStock_id());
                         if (stock != null) {
