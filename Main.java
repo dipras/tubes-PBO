@@ -53,7 +53,7 @@ public class Main {
     
     public static void mainMenu() {
         System.out.println("==============================================");
-        System.out.println("1. Stock\n2. Category\n3. Checkout\n4. Profile\n5. Report Transaction\n9. Logout");
+        System.out.println("1. Stock\n2. Category\n3. Checkout\n4. View Profile\n5. Report Transaction\n9. Logout");
         System.out.println("==============================================");
 
         int choice = 0;
