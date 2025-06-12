@@ -1,11 +1,11 @@
 import java.util.Scanner;
-
+import model.User;
 import page.CategoryPage;
 import page.CheckoutPage;
+import page.HistoryPage;
 import page.ProfilePage;
 import page.ReportPage;
 import page.StockPage;
-import model.User;
 import util.Var;
  
 public class Main {
@@ -53,7 +53,7 @@ public class Main {
     
     public static void mainMenu() {
         System.out.println("==============================================");
-        System.out.println("1. Stock\n2. Category\n3. Checkout\n4. Profile\n5. Report Transaction\n9. Logout");
+        System.out.println("1. Stock\n2. Category\n3. Checkout\n4. Profile\n5. History Transaction\n6. Laporan mingguan\n9. Logout");
         System.out.println("==============================================");
 
         int choice = 0;
@@ -65,7 +65,8 @@ public class Main {
             case 2 -> CategoryPage.CategoryView();
             case 3 -> CheckoutPage.viewCheckout();
             case 4 -> ProfilePage.viewProfile();
-            case 5 -> ReportPage.viewReport();
+            case 5 -> HistoryPage.viewHistory();
+            case 6-> ReportPage.viewReport();
             case 9 -> {
                 System.out.println("Anda telah logout.");
                 loginPage();

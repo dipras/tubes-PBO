@@ -1,103 +1,82 @@
 package page;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 import model.History;
-import model.Stock;
-import model.StockHistory;
-import util.Util;
+import model.Report;
 
 public class ReportPage {
+
+    static ArrayList<Report> reports = new ArrayList<>();
 
     public static void viewReport() {
         System.out.println("======================================");
         System.out.println("\nLaporan Riwayat Transaksi");
         System.out.println("======================================");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. List Laporan");
+        System.out.println("2. Generate Laporan Hari Ini");
+        System.out.print("Pilih menu: ");
+        int pilihan = scanner.nextInt();
+        scanner.nextLine();
 
-        ArrayList<History> listHistory = CheckoutPage.listHistory;
-        ArrayList<StockHistory> listStockHistory = CheckoutPage.listStockHistory;
-
-        if (listHistory.isEmpty()) {
-            System.out.println("Belum ada riwayat transaksi.");
-            System.out.println("======================================");
-            System.out.print("Tekan Enter untuk kembali...");
-            Util.getInputStr();
-        }
-
-        System.out.printf("%-15s %-15s %-15s %-15s %-15s %-15s %-15s\n",
-                "ID Transaksi", "Tanggal", "Metode Bayar", "Bayar", "Kembali", "Total", "User ID");
-        
-
-        for (History history : listHistory) {
-            System.out.printf("%-15d %-15s %-15s %-15s %-15s %-15s %-15d\n",
-                    history.getId(),
-                    Util.dateFormat.format(history.getCreatedAt()),
-                    history.getMethodPayment(),
-                    String.format("Rp%,d", history.getCashcharge()),
-                    String.format("Rp%,d", history.getCashback()),
-                    String.format("Rp%,d", history.getTotal()),
-                    history.getCreatedBy());
-        }
-        
-        long gross_profit = calculateTotalGrossProfit(listHistory);
-        System.out.println("======================================");
-        System.out.printf("Total Gross Profit: Rp%,d\n", gross_profit);
-        System.out.println("======================================");
-        
-
-        while (true) {
-            System.out.print("Lihat Detail Item? Masukkan ID Transaksi (0 untuk selesai): ");
-            int detailHistoryId = Util.getInput();
-
-            if (detailHistoryId == 0) {
+        switch (pilihan) {
+            case 1:
+                listLaporan();
                 break;
-            }
+            case 2:
+                generateLaporanHariIni();
+                break;
+            default:
+                System.out.println("Pilihan tidak valid.");
+        }
+    }
 
-            boolean historyFound = false;
-            for (History history : listHistory) {
-                if (history.getId() == detailHistoryId) {
-                    historyFound = true;
-                    break;
+    public static void listLaporan() {
+        if (reports.isEmpty()) {
+            System.out.println("Belum ada laporan.");
+            return;
+        }
+        for (Report report : reports) {
+            System.out.println("ID: " + report.getId());
+            System.out.println("Nama: " + report.getName());
+            System.out.println("Gross Profit: Rp." + report.getGrossProfit());
+            System.out.println("Tanggal: " + report.getCreatedAt());
+            System.out.println("-------------------------------------");
+        }
+    }
+
+    public static void generateLaporanHariIni() {
+        for (Report report : reports) {
+            Date createdAt = report.getCreatedAt();
+            if (createdAt != null) {
+                Date now = new Date();
+                if (createdAt.getYear() == now.getYear() &&
+                    createdAt.getMonth() == now.getMonth() &&
+                    createdAt.getDate() == now.getDate()) {
+                    System.out.println("Laporan hari ini sudah dibuat.");
+                    return;
                 }
             }
+        }
+        Date now = new Date();
+        long millisIn7Days = 7L * 24 * 60 * 60 * 1000;
+        Date sevenDaysAgo = new Date(now.getTime() - millisIn7Days);
 
-            if (historyFound) {
-                System.out.println("\n  Detail Item untuk Transaksi ID " + detailHistoryId + ":");
-                boolean itemFoundInHistory = false;
-                for(StockHistory sh : listStockHistory) {
-                    if (sh.getHistory_id() == detailHistoryId) {
-                        itemFoundInHistory = true;
-                        Stock stock = CheckoutPage.findStockById(sh.getStock_id());
-                        if (stock != null) {
-                             System.out.printf("    - %-15s (ID: %d) @ Rp%,d\n",
-                                    stock.getNama(),
-                                    stock.getId(),
-                                    stock.getHarga());
-                        } else {
-                             System.out.printf("    - Produk tidak ditemukan (ID: %d)\n", sh.getStock_id());
-                        }
-                    }
-                }
-                if (!itemFoundInHistory) {
-                     System.out.println("    Tidak ada item tercatat untuk transaksi ini.");
-                }
-                
-            } else {
-                System.out.println("Transaksi dengan ID " + detailHistoryId + " tidak ditemukan.");
+        int total = 0;
+        for (History history : HistoryPage.histories) {
+            Date createdAt = history.getCreatedAt();
+            if (createdAt != null && !createdAt.before(sevenDaysAgo) && !createdAt.after(now)) {
+                total += history.getTotal();
             }
         }
 
-        System.out.println("======================================");
-        System.out.print("Tekan Enter untuk kembali...");
-        Util.getInputStr();
+        System.out.println("Total transaksi 7 hari terakhir: " + total);
+        String namaLaporan = "Laporan " + sevenDaysAgo + " - " + now;
+        Report report = new Report(reports.size() + 1, namaLaporan, total);
+        report.setFromDate(sevenDaysAgo);
+        reports.add(report);
+        System.out.println("Laporan berhasil digenerate.");
     }
-
-    
-    public static long calculateTotalGrossProfit(ArrayList<History> histories) {
-        long totalGrossProfit = 0;
-        for (History history : histories) {
-            totalGrossProfit += history.getTotal();
-        }
-        return totalGrossProfit;
-    }
-   
 }

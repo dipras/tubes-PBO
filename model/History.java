@@ -1,48 +1,32 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class History {
 
     private int id = 0;
-    private int created_by = 0;
-    private String method_payment = "";
+    private User created_by;
     private int cashcharge = 0;
     private int cashback = 0;
     private int total = 0;
-    private int stockId = 0;
+    private ArrayList<StockHistory> stocks = new ArrayList<>();
     private Date created_at = null;
     private Date update_at = null;
 
-    public History(int id, int created_by, String method_payment, int cashcharge, int cashback, int total) {
+    public History(int id, User created_by, int cashcharge, int cashback, int total, ArrayList<StockHistory> stocks) {
         this.id = id;
         this.created_by = created_by;
-        this.method_payment = method_payment;
         this.cashcharge = cashcharge;
         this.cashback = cashback;
         this.total = total;
+        this.stocks = stocks;
         this.created_at = new Date();
         this.update_at = new Date();
     }
 
-    public History(int id, int created_by, String method_payment, int cashcharge, int cashback, int total, int stockId) {
-        this.id = id;
-        this.created_by = created_by;
-        this.method_payment = method_payment;
-        this.cashcharge = cashcharge;
-        this.cashback = cashback;
-        this.total = total;
-        this.stockId = stockId;
-        this.created_at = new Date();
-        this.update_at = new Date();
-    }
-
-    public int getCreatedBy() {
+    public User getCreatedBy() {
         return created_by;
-    }
-
-    public String getMethodPayment() {
-        return method_payment;
     }
 
     public int getCashcharge() {
@@ -61,8 +45,12 @@ public class History {
         return id;
     }
 
-    public int getStockId() {
-        return stockId;
+    public void addStock(StockHistory stock) {
+        this.stocks.add(stock);
+    }
+
+    public ArrayList<StockHistory> addStock() {
+        return this.stocks;
     }
 
     public Date getCreatedAt() {

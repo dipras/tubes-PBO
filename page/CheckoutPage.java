@@ -9,208 +9,62 @@ import util.Var;
 
 public class CheckoutPage {
 
-    static ArrayList<History> listHistory = new ArrayList<>();
-    static ArrayList<StockHistory> listStockHistory = new ArrayList<>();
-    static int historyIdCounter = 1;
-    static int stockHistoryIdCounter = 1;
-
     public static void viewCheckout() {
-        int choice = 0;
-
-        while (choice != 9) {
-            System.out.println("======================================");
-            System.out.println("\nHalaman Checkout");
-            System.out.println("======================================");
-            System.out.println("1. Checkout");
-            System.out.println("9. Kembali ke Menu Utama");
-            System.out.print("Masukan pilihan: ");
-            choice = Util.getInput();
-
-            switch (choice) {
-                case 1 -> addTransaction();
-                case 9 -> {
-                    break;
-                }
-                default -> {
-                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-            } }
-        }
-    }
-
-    public static void addTransaction() {
-        System.out.println("======================================");
-        System.out.println("\nCheckout");
-
-        System.out.println("Daftar Produk:");
-        StockPage.listFood();
-
-        int currentHistoryId = historyIdCounter++;
-        int totalHarga = 0;
-        boolean itemAdded = false;
-
-        System.out.println("\nMasukkan ID produk dan jumlah yang ingin dibeli (ketik '0' untuk selesai):");
-
+        ArrayList<StockHistory> chosenStocks = new ArrayList<>();
         while (true) {
-            System.out.print("Masukkan ID Produk (0 untuk Checkout): ");
-            int productId = Util.getInput();
-            if (productId == 0) {
+            int[] i = {1};
+            page.StockPage.listStock.forEach(menu -> {
+                System.out.println(i[0] + ". " + menu.getNama());
+                i[0]++;
+            });
+
+            System.out.print("Masukan pilihan anda (ketik 0 untuk checkout): ");
+            int choice = Util.getInput();
+            if (choice == 0) {
+                if (chosenStocks.size() < 1) {
+                    System.out.println("Minimal memilih 1 menu!");
+                    continue;
+                }
+                int[] grandtotal = {0};
+                chosenStocks.forEach(s -> {
+                    grandtotal[0] += s.total_price;
+                });
+
+                System.out.println("Total pembayaran: " + grandtotal[0]);
+                System.out.print("Masukan uang anda: ");
+                int charge = Util.getInput();
+
+                if (grandtotal[0] > charge) {
+                    System.out.println("Pembayaran kurang!");
+                    continue;
+                }
+                int cashback = charge - grandtotal[0];
+
+                History newHistory = new History(HistoryPage.getLatestId() + 1, Var.getCurrentUser(), charge, cashback, grandtotal[0], chosenStocks);
+                HistoryPage.histories.add(newHistory);
+                System.out.println("Berhasil membeli\n====================");
                 break;
-            }
-
-            Stock selectedStock = null;
-            for (Stock stock : StockPage.listStock) {
-                if (stock.getId() == productId) {
-                    selectedStock = stock;
-                    break;
-                }
-            }
-
-            if (selectedStock == null) {
-                System.out.println("Produk dengan ID tersebut tidak ditemukan.");
-                continue;
-            }
-
-            System.out.print("Masukkan Jumlah: ");
-            int quantity = Util.getInput();
-
-            if (quantity <= 0) {
-                System.out.println("Jumlah harus lebih dari 0.");
-                continue;
-            }
-
-            
-            for(int i = 0; i < quantity; i++) {
-                StockHistory newStockHistory = new StockHistory(stockHistoryIdCounter++, productId, currentHistoryId);
-                listStockHistory.add(newStockHistory);
-            }
-
-            totalHarga += selectedStock.getHarga() * quantity;
-            itemAdded = true;
-
-            System.out.println("Produk ditambahkan ke keranjang.");
-        }
-
-        if (!itemAdded) {
-            System.out.println("Tidak ada produk yang dipilih untuk transaksi.");
-            historyIdCounter--;
-            return;
-        }
-
-        System.out.println("======================================");
-        System.out.println("\nDetail Checkout");
-        System.out.printf("%-20s %-10s %-15s\n", "Nama Produk", "Jumlah", "Harga Satuan");
-        
-        
-        ArrayList<Integer> ProductId = new ArrayList<>();
-
-        
-        for (StockHistory sh : listStockHistory) {
-            if (sh.getHistory_id() == currentHistoryId) {
-                int currentProductId = sh.getStock_id();
-
-                
-                boolean alreadyDisplayed = false;
-                for (int id : ProductId) {
-                    if (id == currentProductId) {
-                        alreadyDisplayed = true;
-                        break;
-                    }
-                }
-
-                if (!alreadyDisplayed) {
-                    
-                    int quantity = 0;
-                    for (StockHistory innerSh : listStockHistory) {
-                        if (innerSh.getHistory_id() == currentHistoryId && innerSh.getStock_id() == currentProductId) {
-                            quantity++;
-                        }
-                    }
-
-                    Stock stock = findStockById(currentProductId);
-                    if (stock != null) {
-                        System.out.printf("%-20s %-10d Rp%,d\n",
-                                stock.getNama(),
-                                quantity,
-                                stock.getHarga());
-                    } else {
-                        System.out.printf("Produk tidak ditemukan (ID: %d)\n", currentProductId);
-                    }
-
-                    
-                    ProductId.add(currentProductId);
-                }
-            }
-        }
-       
-
-        System.out.println("======================================");
-        System.out.printf("Total Belanja: Rp%,d\n", totalHarga);
-
-        String methodPayment;
-        int cashCharge = 0;
-        int cashBack = 0;
-        int created_by = Var.getCurrentUser().getId();
-
-
-        while (true) {
-            System.out.print("\nMasukkan Metode Pembayaran (misal: Cash, QRIS): ");
-            methodPayment = Util.getInputStr();
-
-            if (methodPayment.equalsIgnoreCase("Cash")) {
-
-                System.out.print("Masukkan Jumlah Bayar: ");
-                cashCharge = Util.getInput();
-                if (cashCharge < totalHarga) {
-                    System.out.println("Jumlah bayar kurang dari total belanja. Transaksi dibatalkan.");
-                    historyIdCounter--;
-
-                    
-                    listStockHistory.removeIf(sh -> sh.getHistory_id() == currentHistoryId);
-                    return;
-                }
-                cashBack = cashCharge - totalHarga;
-                break;
-            } else if (methodPayment.equalsIgnoreCase("QRIS")) {
-
-                System.out.print("Masukkan Jumlah Bayar: ");
-                cashCharge = Util.getInput();
-                if (cashCharge < totalHarga) {
-                    System.out.println("Jumlah bayar kurang dari total belanja. Transaksi dibatalkan.");
-                    historyIdCounter--;
-
-                    
-                    listStockHistory.removeIf(sh -> sh.getHistory_id() == currentHistoryId);
-                    return;
-                }
-                cashBack = cashCharge - totalHarga;
-                break;
-
             } else {
-                System.out.println("Metode pembayaran tidak valid. Silakan coba lagi.");
+                Stock newStock = StockPage.listStock.get(choice - 1);
+                if (newStock == null) {
+                    System.out.println("Menu yang dipilih tidak ada");
+                    continue;
+                }
+                System.out.print("Banyaknya pembelian: ");
+                int qty = Util.getInput();
+                chosenStocks.add(new StockHistory(newStock, qty));
 
-            }
-
-
-        }
-
-        History newHistory = new History(currentHistoryId, created_by, methodPayment, cashCharge, cashBack, totalHarga);
-        listHistory.add(newHistory);
-
-        System.out.println("======================================");
-        System.out.println("\nTransaksi berhasil dicatat!");
-        System.out.printf("ID User: %,d\n", created_by);
-        System.out.printf("Total: Rp%,d\n", totalHarga);
-        System.out.printf("Bayar: Rp%,d\n", cashCharge);
-        System.out.printf("Kembali: Rp%,d\n", cashBack);
-        System.out.println("======================================");
-    }
-
-    static Stock findStockById(int id) {
-        for (Stock stock : StockPage.listStock) {
-            if (stock.getId() == id) {
-                return stock;
+                System.out.println("### KERANJANG ###");
+                int[] index = {1};
+                int[] grandTotal = {0};
+                chosenStocks.forEach(chose -> {
+                    System.out.printf("%-3d %-20s x%-3d Rp. %-10d%n", index[0], chose.stock.getNama(), chose.qty, chose.total_price);
+                    index[0]++;
+                    grandTotal[0] += chose.total_price;
+                });
+                System.out.println("TOTAL SEMUA = Rp." + grandTotal[0]);
+                System.out.println();
             }
         }
-        return null;
     }
 }
