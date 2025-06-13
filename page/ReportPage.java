@@ -46,6 +46,7 @@ public class ReportPage {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public static void generateLaporanHariIni() {
         for (Report report : reports) {
             Date createdAt = report.getCreatedAt();
