@@ -2,6 +2,7 @@ package page;
 
 import java.util.ArrayList;
 import java.util.Date;
+import model.Category;
 import model.Stock;
 import util.Util;
 
@@ -10,8 +11,8 @@ public class StockPage {
     static ArrayList<Stock> listStock = new ArrayList<>();
 
     static {
-        listStock.add(new Stock(1, "Nasi Goreng", "Makanan Berat", new Date(), new Date(), 20000));
-        listStock.add(new Stock(2, "Bakso", "Makanan Berat", new Date(), new Date(), 18000));
+        listStock.add(new Stock(1, "Nasi Goreng", "Makanan", new Date(), new Date(), 20000));
+        listStock.add(new Stock(2, "Bakso", "Makanan", new Date(), new Date(), 18000));
         listStock.add(new Stock(3, "Es Teh", "Minuman", new Date(), new Date(), 5000));
         listStock.add(new Stock(4, "Pisang Goreng", "Cemilan", new Date(), new Date(), 8000));
     }
@@ -63,13 +64,28 @@ public class StockPage {
     public static void addFood() {
         System.out.print("Masukkan nama makanan: ");
         String nama = Util.getInputStr();
-        System.out.print("Masukkan kategori: ");
-        String kategori = Util.getInputStr();
+        int[] catIndex = {1};
+        CategoryPage.listCategory.forEach(cat -> {
+            System.out.println(catIndex[0] + ". " + cat.getName());
+            catIndex[0]++;
+        });
+        String kategoriNama;
+        while (true) {
+            System.out.print("Pilih kategori: ");
+            int choice = Util.getInput();
+            Category kategori = CategoryPage.listCategory.get(choice);
+            if (kategori == null) {
+                System.out.println("Kategori tidak ditemukan!");
+            } else {
+                kategoriNama = kategori.getName();
+                break;
+            }
+        }
         System.out.print("Masukkan harga: ");
         int harga = Util.getInput();
         int id = listStock.size() + 1;
         Date now = new Date();
-        Stock newStock = new Stock(id, nama, kategori, now, now, harga);
+        Stock newStock = new Stock(id, nama, kategoriNama, now, now, harga);
         listStock.add(newStock);
         System.out.println("Makanan berhasil ditambahkan.");
     }
@@ -93,10 +109,28 @@ public class StockPage {
         if (!namaBaru.isEmpty()) {
             stockToUpdate.setNama(namaBaru);
         }
-        System.out.print("Masukkan kategori baru (kosongkan jika tidak ingin mengubah): ");
-        String kategoriBaru = Util.getInputStr();
-        if (!kategoriBaru.isEmpty()) {
-            stockToUpdate.setCategory(kategoriBaru);
+        int[] catIndex = {1};
+        CategoryPage.listCategory.forEach(cat -> {
+            System.out.println(catIndex[0] + ". " + cat.getName());
+            catIndex[0]++;
+        });
+        String kategoriNama = null;
+        while (true) {
+            System.out.print("Pilih kategori (masukan angka 0 jika tidak ingin mengubah): ");
+            int choice = Util.getInput();
+            if (choice == 0) {
+                break;
+            }
+            Category kategori = CategoryPage.listCategory.get(choice);
+            if (kategori == null) {
+                System.out.println("Kategori tidak ditemukan!");
+            } else {
+                kategoriNama = kategori.getName();
+                break;
+            }
+        }
+        if (kategoriNama != null) {
+            stockToUpdate.setCategory(kategoriNama);
         }
         System.out.print("Masukkan harga baru (0 jika tidak ingin mengubah): ");
         int hargaBaru = Util.getInput();

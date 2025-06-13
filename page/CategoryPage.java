@@ -5,7 +5,14 @@ import model.Category;
 import util.Util;
 
 public class CategoryPage {
+
     static ArrayList<Category> listCategory = new ArrayList<>();
+
+    static {
+        listCategory.add(new Category(1, "Makanan"));
+        listCategory.add(new Category(2, "Minuman"));
+        listCategory.add(new Category(3, "Cemilan"));
+    }
 
     public static void CategoryView() {
         System.out.println("1. List Category\n2. Tambah Category \n3. Update Category\n4. Hapus Category\n9. Kembali ke Menu Utama");
@@ -81,6 +88,5 @@ public class CategoryPage {
         }
         System.out.println("Kategori dengan ID tersebut tidak ditemukan.");
     }
-
 
 }
