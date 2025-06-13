@@ -12,11 +12,9 @@ public class CheckoutPage {
     public static void viewCheckout() {
         ArrayList<StockHistory> chosenStocks = new ArrayList<>();
         while (true) {
-            int[] i = {1};
-            page.StockPage.listStock.forEach(menu -> {
-                System.out.println(i[0] + ". " + menu.getNama());
-                i[0]++;
-            });
+            for (int i = 0; i < page.StockPage.listStock.size(); i++) {
+                System.out.println((i + 1) + ". " + page.StockPage.listStock.get(i).getNama());
+            }
 
             System.out.print("Masukan pilihan anda (ketik 0 untuk checkout): ");
             int choice = Util.getInput();
@@ -25,22 +23,22 @@ public class CheckoutPage {
                     System.out.println("Minimal memilih 1 menu!");
                     continue;
                 }
-                int[] grandtotal = {0};
-                chosenStocks.forEach(s -> {
-                    grandtotal[0] += s.total_price;
-                });
+                int grandtotal = 0;
+                for (int i = 0; i < chosenStocks.size(); i++) {
+                    grandtotal += chosenStocks.get(i).total_price;
+                }
 
-                System.out.println("Total pembayaran: " + grandtotal[0]);
+                System.out.println("Total pembayaran: " + grandtotal);
                 System.out.print("Masukan uang anda: ");
                 int charge = Util.getInput();
 
-                if (grandtotal[0] > charge) {
+                if (grandtotal > charge) {
                     System.out.println("Pembayaran kurang!");
                     continue;
                 }
-                int cashback = charge - grandtotal[0];
+                int cashback = charge - grandtotal;
 
-                History newHistory = new History(HistoryPage.getLatestId() + 1, Var.getCurrentUser(), charge, cashback, grandtotal[0], chosenStocks);
+                History newHistory = new History(HistoryPage.getLatestId() + 1, Var.getCurrentUser(), charge, cashback, grandtotal, chosenStocks);
                 HistoryPage.histories.add(newHistory);
                 System.out.println("Berhasil membeli\n====================");
                 break;
@@ -55,14 +53,13 @@ public class CheckoutPage {
                 chosenStocks.add(new StockHistory(newStock, qty));
 
                 System.out.println("### KERANJANG ###");
-                int[] index = {1};
-                int[] grandTotal = {0};
-                chosenStocks.forEach(chose -> {
-                    System.out.printf("%-3d %-20s x%-3d Rp. %-10d%n", index[0], chose.stock.getNama(), chose.qty, chose.total_price);
-                    index[0]++;
-                    grandTotal[0] += chose.total_price;
-                });
-                System.out.println("TOTAL SEMUA = Rp." + grandTotal[0]);
+                int grandTotal = 0;
+                for (int i = 0; i < chosenStocks.size(); i++) {
+                    StockHistory chose = chosenStocks.get(i);
+                    System.out.printf("%-3d %-20s x%-3d Rp. %-10d%n", i + 1, chose.stock.getNama(), chose.qty, chose.total_price);
+                    grandTotal += chose.total_price;
+                }
+                System.out.println("TOTAL SEMUA = Rp." + grandTotal);
                 System.out.println();
             }
         }

@@ -64,11 +64,9 @@ public class StockPage {
     public static void addFood() {
         System.out.print("Masukkan nama makanan: ");
         String nama = Util.getInputStr();
-        int[] catIndex = {1};
-        CategoryPage.listCategory.forEach(cat -> {
-            System.out.println(catIndex[0] + ". " + cat.getName());
-            catIndex[0]++;
-        });
+        for (int i = 0; i < CategoryPage.listCategory.size(); i++) {
+            System.out.println((i + 1) + ". " + CategoryPage.listCategory.get(i).getName());
+        }
         String kategoriNama;
         while (true) {
             System.out.print("Pilih kategori: ");
@@ -109,10 +107,10 @@ public class StockPage {
         if (!namaBaru.isEmpty()) {
             stockToUpdate.setNama(namaBaru);
         }
-        int[] catIndex = {1};
+        for (int i = 0; i < CategoryPage.listCategory.size(); i++) {
+            System.out.println((i + 1) + ". " + CategoryPage.listCategory.get(i).getName());
+        }
         CategoryPage.listCategory.forEach(cat -> {
-            System.out.println(catIndex[0] + ". " + cat.getName());
-            catIndex[0]++;
         });
         String kategoriNama = null;
         while (true) {
