@@ -73,8 +73,9 @@ public class ReportPage {
         }
 
         System.out.println("Total transaksi 7 hari terakhir: " + total);
+        int nextId = reports.isEmpty() ? 1 : reports.get(reports.size() - 1).getId() + 1;
         String namaLaporan = "Laporan " + sevenDaysAgo + " - " + now;
-        Report report = new Report(reports.get(reports.size() - 1).getId() + 1, namaLaporan, total);
+        Report report = new Report(nextId, namaLaporan, total);
         report.setFromDate(sevenDaysAgo);
         reports.add(report);
         System.out.println("Laporan berhasil digenerate.");

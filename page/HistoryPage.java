@@ -22,7 +22,7 @@ public class HistoryPage {
             System.out.println("Cashback: " + history.getCashback());
             System.out.println("Daftar Barang:");
             for (StockHistory sh : history.getStock()) {
-                System.out.println("  - " + sh.stock.getNama() + " | Qty: " + sh.qty + " | Harga: " + sh.stock.getHarga() + " | Total: " + sh.total_price);
+                System.out.println("  - " + sh.stock.getNama() + " | Qty: " + sh.qty + " | Harga: " + sh.hargaSaatTransaksi + " | Total: " + sh.total_price);
             }
             System.out.println("--------------------------------------------------");
         }

@@ -71,7 +71,7 @@ public class StockPage {
         while (true) {
             System.out.print("Pilih kategori: ");
             int choice = Util.getInput();
-            Category kategori = CategoryPage.listCategory.get(choice);
+            Category kategori = CategoryPage.listCategory.get(choice-1);
             if (kategori == null) {
                 System.out.println("Kategori tidak ditemukan!");
             } else {
@@ -119,7 +119,7 @@ public class StockPage {
             if (choice == 0) {
                 break;
             }
-            Category kategori = CategoryPage.listCategory.get(choice);
+            Category kategori = CategoryPage.listCategory.get(choice-1);
             if (kategori == null) {
                 System.out.println("Kategori tidak ditemukan!");
             } else {
