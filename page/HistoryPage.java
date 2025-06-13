@@ -2,6 +2,7 @@ package page;
 
 import java.util.ArrayList;
 import model.History;
+import model.StockHistory;
 
 public class HistoryPage {
 
@@ -20,7 +21,7 @@ public class HistoryPage {
             System.out.println("Cash Charge: " + history.getCashcharge());
             System.out.println("Cashback: " + history.getCashback());
             System.out.println("Daftar Barang:");
-            for (model.StockHistory sh : history.getStock()) {
+            for (StockHistory sh : history.getStock()) {
                 System.out.println("  - " + sh.stock.getNama() + " | Qty: " + sh.qty + " | Harga: " + sh.stock.getHarga() + " | Total: " + sh.total_price);
             }
             System.out.println("--------------------------------------------------");
