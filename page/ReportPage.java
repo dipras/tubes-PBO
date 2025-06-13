@@ -43,7 +43,6 @@ public class ReportPage {
             System.out.println("Nama: " + report.getName());
             System.out.println("Gross Profit: Rp." + report.getGrossProfit());
             System.out.println("Tanggal: " + report.getCreatedAt());
-            System.out.println("-------------------------------------");
         }
     }
 
@@ -74,7 +73,7 @@ public class ReportPage {
 
         System.out.println("Total transaksi 7 hari terakhir: " + total);
         String namaLaporan = "Laporan " + sevenDaysAgo + " - " + now;
-        Report report = new Report(reports.size() + 1, namaLaporan, total);
+        Report report = new Report(reports.get(reports.size() - 1).getId() + 1, namaLaporan, total);
         report.setFromDate(sevenDaysAgo);
         reports.add(report);
         System.out.println("Laporan berhasil digenerate.");

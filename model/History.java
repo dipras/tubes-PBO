@@ -49,7 +49,7 @@ public class History {
         this.stocks.add(stock);
     }
 
-    public ArrayList<StockHistory> addStock() {
+    public ArrayList<StockHistory> getStock() {
         return this.stocks;
     }
 
